@@ -1,0 +1,16 @@
+{
+    "by": "current",
+    "valid_key": true,
+    "results": [
+        {
+            "date": "2023-02-09",
+            "cdi": 13.75,
+            "selic": 13.75,
+            "daily_factor": 1.00050788,
+            "selic_daily": 13.65,
+            "cdi_daily": 13.65
+        }
+    ],
+    "execution_time": 0.0,
+    "from_cache": true
+}

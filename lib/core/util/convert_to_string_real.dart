@@ -2,7 +2,7 @@ import 'package:avistaouaprazo/core/error/falhas.dart';
 import 'package:dartz/dartz.dart';
 import 'package:decimal/decimal.dart';
 
-class ConvertToStringReal {
+class ConvertTo {
   Either<Falha, String> fromDecimalToStringReal(Decimal valor) {
     try {
       String valorString = valor.toString();

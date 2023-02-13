@@ -3,7 +3,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  ConvertToStringReal convertToStringReal = ConvertToStringReal();
+  ConvertTo convertToStringReal = ConvertTo();
   test("Deve converte um decimal [12.38] para uma String [R\$ 12.38]", () {
     final result =
         convertToStringReal.fromDecimalToStringReal(Decimal.parse("12.38"));

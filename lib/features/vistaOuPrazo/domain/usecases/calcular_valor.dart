@@ -18,9 +18,9 @@ Decimal tributacao365D =
 
 class CalcularValor extends UseCase<Resultado, CalcularValorParametro> {
   final VistaOuPrazoRepository repository;
-  final ConvertToStringReal convertToStringReal;
+  final ConvertTo convertTo;
 
-  CalcularValor({required this.repository, required this.convertToStringReal});
+  CalcularValor({required this.repository, required this.convertTo});
 
   @override
   Future<Either<Falha, Resultado>> call(
@@ -257,7 +257,7 @@ class CalcularValor extends UseCase<Resultado, CalcularValorParametro> {
   Decimal fromDoubleToDecimal(double valor) {
     Decimal decimalValor = Decimal.zero;
     try {
-      convertToStringReal.fromDoubleToDecimal(valor).fold((l) {
+      convertTo.fromDoubleToDecimal(valor).fold((l) {
         throw l;
       }, (r) {
         decimalValor = r;
@@ -271,7 +271,7 @@ class CalcularValor extends UseCase<Resultado, CalcularValorParametro> {
   Decimal fromStringToDecimal(String valor) {
     Decimal decimalValor = Decimal.zero;
     try {
-      convertToStringReal.fromStringToDecimal(valor).fold((l) {
+      convertTo.fromStringToDecimal(valor).fold((l) {
         throw l;
       }, (r) {
         decimalValor = r;
@@ -285,7 +285,7 @@ class CalcularValor extends UseCase<Resultado, CalcularValorParametro> {
   String fromDecimalToStringReal(Decimal valor) {
     String stringValor = "";
     try {
-      convertToStringReal.fromDecimalToStringReal(valor).fold((l) {
+      convertTo.fromDecimalToStringReal(valor).fold((l) {
         throw l;
       }, (r) => stringValor = r);
       return stringValor;
@@ -297,7 +297,7 @@ class CalcularValor extends UseCase<Resultado, CalcularValorParametro> {
   double fromDecimalToDouble(Decimal valor) {
     double doubleValor = 0.0;
     try {
-      convertToStringReal.fromDecimalToDouble(valor).fold((l) {
+      convertTo.fromDecimalToDouble(valor).fold((l) {
         throw l;
       }, (r) => doubleValor = r);
       return doubleValor;

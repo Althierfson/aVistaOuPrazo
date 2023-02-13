@@ -13,24 +13,23 @@ import 'package:mockito/mockito.dart';
 
 import 'calcular_valor_test.mocks.dart';
 
-@GenerateNiceMocks(
-    [MockSpec<VistaOuPrazoRepository>(), MockSpec<ConvertToStringReal>()])
+@GenerateNiceMocks([MockSpec<VistaOuPrazoRepository>()])
 void main() {
   MockVistaOuPrazoRepository repository = MockVistaOuPrazoRepository();
-  ConvertToStringReal convert = ConvertToStringReal();
+  ConvertTo convert = ConvertTo();
   CalcularValor usecase =
-      CalcularValor(repository: repository, convertToStringReal: convert);
+      CalcularValor(repository: repository, convertTo: convert);
 
   setUp(() {
     repository = MockVistaOuPrazoRepository();
-    convert = ConvertToStringReal();
+    convert = ConvertTo();
     usecase =
-        CalcularValor(repository: repository, convertToStringReal: convert);
+        CalcularValor(repository: repository, convertTo: convert);
   });
 
   test("Deve retornar uma falha quando o repositorio retornar um falha",
       () async {
-    when(repository.getTaxas()).thenAnswer((_) async => Left(APIFalha()));
+    when(repository.getTaxas()).thenAnswer((_) async => Left(AcessoAPIFalha()));
 
     final result = await usecase(CalcularValorParametro(
         parcelas: 10,
@@ -39,7 +38,7 @@ void main() {
         tipoDeTaxa: TiposDeTaxas.selic));
 
     result.fold((l) {
-      expect(l, isA<APIFalha>());
+      expect(l, isA<AcessoAPIFalha>());
     }, (r) {
       expect(1, 2);
     });
