@@ -23,6 +23,8 @@ dependencies:
   http: ^0.13.5
   get_it: ^7.2.0
   bloc_test: ^9.1.1
+  syncfusion_flutter_charts: ^20.4.49
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

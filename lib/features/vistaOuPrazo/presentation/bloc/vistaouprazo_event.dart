@@ -15,3 +15,5 @@ class CalcularComTaxaPadraoEvent extends VistaOuPrazoEvent {
   @override
   List<Object> get props => [parametro];
 }
+
+class DadosInvalidosEvent extends VistaOuPrazoEvent {}

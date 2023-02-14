@@ -17,5 +17,10 @@ class VistaOuPrazoBloc extends Bloc<VistaOuPrazoEvent, VistaOuPrazoState> {
           (l) => emit(FalhaNoCalculoState(getMensagemFalha(l))),
           (r) => emit(CalculoConcluidoState(r))));
     });
+
+    on<DadosInvalidosEvent>((event, emit) {
+      emit(const FalhaNoCalculoState(
+          "Dados invalidos! Verifique os dados fornecidos"));
+    });
   }
 }

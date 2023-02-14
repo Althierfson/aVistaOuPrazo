@@ -17,7 +17,7 @@ class VistaOuPrazoRemoteDataSourceImpl extends VistaOuPrazoRemoteDataSource {
   Future<TaxasModel> getRemoteTaxas() async {
     http.Response response;
     try {
-      response = await client.get(Uri.parse(environment.urlBase));
+      response = await client.get(Uri.parse(environment.urlFinal));
     } on Exception {
       throw AcessoAPIFalha();
     }
