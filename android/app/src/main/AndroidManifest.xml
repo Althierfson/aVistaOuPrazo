@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.avistaouaprazo">
    <application
-        android:label="avistaouaprazo"
+        android:label="À vista ou a prazo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
