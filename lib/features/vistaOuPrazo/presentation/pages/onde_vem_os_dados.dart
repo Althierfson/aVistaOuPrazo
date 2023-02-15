@@ -24,4 +24,6 @@ class _OndeVemOsDadosState extends State<OndeVemOsDados> {
 }
 
 String texto =
-    "Os nossos dado vem direto do sistema HG Brasil - Utilizamos sua API HG Finance";
+    """Os nossos dado vem direto do sistema HG Brasil - Utilizamos sua API HG Finance.
+    
+    Esses valores ficam armazenados no seu dispositivo, e são atualizados acada 30 dias""";

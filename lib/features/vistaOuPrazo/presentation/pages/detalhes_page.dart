@@ -74,7 +74,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
               SfCartesianChart(
                 series: <ChartSeries>[
                   LineSeries<double, int>(
-                      name: "A Vista",
+                      name: "À Vista",
                       dataSource: widget.resultado.historicoAvista,
                       xValueMapper: (double valor, index) => index,
                       yValueMapper: (double valor, _) => valor,
@@ -93,9 +93,12 @@ class _DetalhesPageState extends State<DetalhesPage> {
                     numberFormat: NumberFormat.simpleCurrency(
                         decimalDigits: 0, locale: "pt-br")),
                 legend: Legend(
+                    padding: 19,
                     isVisible: true,
                     position: LegendPosition.bottom,
-                    title: LegendTitle(text: "Rendimento ao longo dos meses")),
+                    title: LegendTitle(
+                        text: "Rendimento ao longo dos meses",
+                        alignment: ChartAlignment.center)),
               )
             ],
           ),
