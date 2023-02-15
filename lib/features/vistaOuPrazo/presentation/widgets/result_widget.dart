@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // Constantes
 Map<TipoResultado, String> mensagens = {
-  TiposDeResultados.aVista: "Pagar a Vista",
+  TiposDeResultados.aVista: "Pagar à Vista",
   TiposDeResultados.aPrazo: "Pagar a Prazo",
 };
 

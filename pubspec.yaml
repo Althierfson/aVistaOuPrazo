@@ -25,6 +25,7 @@ dependencies:
   bloc_test: ^9.1.1
   syncfusion_flutter_charts: ^20.4.49
   intl: ^0.18.0
+  flutter_launcher_icons: ^0.11.0
 
 dev_dependencies:
   flutter_test:
