@@ -1,4 +1,5 @@
 import 'package:avistaouaprazo/core/network/network_info.dart';
+import 'package:avistaouaprazo/core/util/calcular_rendimento.dart';
 import 'package:avistaouaprazo/core/util/convert_to_string_real.dart';
 import 'package:avistaouaprazo/environment.dart';
 import 'package:avistaouaprazo/environment/hgbrasil_environment.dart';
@@ -20,6 +21,8 @@ Future<void> setupContainer() async {
   // Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton<ConvertTo>(() => ConvertTo());
+  sl.registerLazySingleton<CalcularRendimento>(
+      () => CalcularRendimentoImpl(convertTo: sl()));
 
   // Environment
   sl.registerLazySingleton<Environment>(() => hgBrasilEnvironment);
