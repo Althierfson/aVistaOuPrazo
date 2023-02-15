@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class ResultDisplayWidget extends StatelessWidget {
   final Widget child;
   final Function() onPressed;
-  const ResultDisplayWidget(
-      {super.key, required this.child, required this.onPressed});
+  
+  const ResultDisplayWidget({
+    super.key,
+    required this.child,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
