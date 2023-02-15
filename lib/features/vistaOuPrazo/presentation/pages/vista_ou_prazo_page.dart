@@ -47,7 +47,7 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                     children: [
                       TextFieldMoneyWidget(
                         hintText: "Valor da compra",
-                        labelText: "Informe o valor da Compra a prazo (xx.xx)",
+                        labelText: "Informe o valor da Compra a prazo",
                         onChanged: (valor) => valorDaCompra = valor,
                       ),
                       TextField(
@@ -68,12 +68,14 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                       ),
                       TextFieldMoneyWidget(
                         hintText: "Valor a vista",
-                        labelText: "Informe o valor da compra a vista (xx.xx)",
+                        labelText: "Informe o valor da compra a vista",
                         onChanged: (valor) => valorAVista = valor,
                       ),
                       DropdownButtonFormField(
                           hint: const Text(
-                              "Sobre que taxa seu dinheiro estará rendendo?"),
+                            "Escolha a taxa de rendimento?",
+                            overflow: TextOverflow.fade,
+                          ),
                           items: List<DropdownMenuItem>.from(opcoesDeTaxa.map(
                               (e) => DropdownMenuItem(
                                   value: e['taxa'], child: Text(e['nome'])))),
@@ -89,7 +91,7 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                           GestureDetector(
                             onTap: () {},
                             child: const Text(
-                              "Usar taxas personalizadas",
+                              "Usar taxa personalizada",
                               style:
                                   TextStyle(fontSize: 16, color: Colors.blue),
                               textAlign: TextAlign.right,
@@ -105,7 +107,7 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                           if (state is VistaOuPrazoInitial) {
                             return ResultDisplayWidget(
                                 child: const Text(
-                                    "Adicone os valores, depois vá em calculo!"),
+                                    "Adicone os valores, depois vá em calcular!"),
                                 onPressed: () {
                                   verificarEnviarDados(context);
                                 });
