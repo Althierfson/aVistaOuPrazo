@@ -58,4 +58,4 @@ E Seguimos nessa sequência, onde a cada mês o valor que usamos para calcular o
 
 Dessa forma podem determinar qual é a melhor opção, a vista ou a prazo.
 
-Esse calculo não considera, infração monetária, cashback ou pontuações do cartão de crédito.""";
+Esse calculo não considera, inflação monetária, cashback ou pontuações do cartão de crédito.""";

@@ -3,21 +3,22 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i8;
+import 'dart:async' as _i6;
 
-import 'package:avistaouaprazo/core/error/falhas.dart' as _i9;
-import 'package:avistaouaprazo/core/util/convert_to_string_real.dart' as _i3;
-import 'package:avistaouaprazo/core/util/tipo_de_taxa.dart' as _i11;
+import 'package:avistaouaprazo/core/error/falhas.dart' as _i7;
+import 'package:avistaouaprazo/core/util/calcular_rendimento.dart' as _i3;
+import 'package:avistaouaprazo/core/util/tipo_de_taxa.dart' as _i10;
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/entities/resultado.dart'
-    as _i5;
+    as _i8;
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/entities/taxas.dart'
-    as _i10;
+    as _i9;
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/repositories/vista_ou_prazo_repository.dart'
     as _i2;
+import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_com_taxa_personalizada.dart'
+    as _i11;
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_valor.dart'
-    as _i7;
+    as _i5;
 import 'package:dartz/dartz.dart' as _i4;
-import 'package:decimal/decimal.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -42,8 +43,9 @@ class _FakeVistaOuPrazoRepository_0 extends _i1.SmartFake
         );
 }
 
-class _FakeConvertTo_1 extends _i1.SmartFake implements _i3.ConvertTo {
-  _FakeConvertTo_1(
+class _FakeCalcularRendimento_1 extends _i1.SmartFake
+    implements _i3.CalcularRendimento {
+  _FakeCalcularRendimento_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -62,30 +64,10 @@ class _FakeEither_2<L, R> extends _i1.SmartFake implements _i4.Either<L, R> {
         );
 }
 
-class _FakeResultado_3 extends _i1.SmartFake implements _i5.Resultado {
-  _FakeResultado_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeDecimal_4 extends _i1.SmartFake implements _i6.Decimal {
-  _FakeDecimal_4(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [CalcularValor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCalcularValor extends _i1.Mock implements _i7.CalcularValor {
+class MockCalcularValor extends _i1.Mock implements _i5.CalcularValor {
   @override
   _i2.VistaOuPrazoRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
@@ -99,27 +81,27 @@ class MockCalcularValor extends _i1.Mock implements _i7.CalcularValor {
         ),
       ) as _i2.VistaOuPrazoRepository);
   @override
-  _i3.ConvertTo get convertTo => (super.noSuchMethod(
-        Invocation.getter(#convertTo),
-        returnValue: _FakeConvertTo_1(
+  _i3.CalcularRendimento get calcularRendimento => (super.noSuchMethod(
+        Invocation.getter(#calcularRendimento),
+        returnValue: _FakeCalcularRendimento_1(
           this,
-          Invocation.getter(#convertTo),
+          Invocation.getter(#calcularRendimento),
         ),
-        returnValueForMissingStub: _FakeConvertTo_1(
+        returnValueForMissingStub: _FakeCalcularRendimento_1(
           this,
-          Invocation.getter(#convertTo),
+          Invocation.getter(#calcularRendimento),
         ),
-      ) as _i3.ConvertTo);
+      ) as _i3.CalcularRendimento);
   @override
-  _i8.Future<_i4.Either<_i9.Falha, _i5.Resultado>> call(
-          _i7.CalcularValorParametro? parametro) =>
+  _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>> call(
+          _i5.CalcularValorParametro? parametro) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [parametro],
         ),
-        returnValue: _i8.Future<_i4.Either<_i9.Falha, _i5.Resultado>>.value(
-            _FakeEither_2<_i9.Falha, _i5.Resultado>(
+        returnValue: _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>>.value(
+            _FakeEither_2<_i7.Falha, _i8.Resultado>(
           this,
           Invocation.method(
             #call,
@@ -127,176 +109,19 @@ class MockCalcularValor extends _i1.Mock implements _i7.CalcularValor {
           ),
         )),
         returnValueForMissingStub:
-            _i8.Future<_i4.Either<_i9.Falha, _i5.Resultado>>.value(
-                _FakeEither_2<_i9.Falha, _i5.Resultado>(
+            _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>>.value(
+                _FakeEither_2<_i7.Falha, _i8.Resultado>(
           this,
           Invocation.method(
             #call,
             [parametro],
           ),
         )),
-      ) as _i8.Future<_i4.Either<_i9.Falha, _i5.Resultado>>);
+      ) as _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>>);
   @override
-  _i5.Resultado calcularRendimentoAVista(
-    _i7.CalcularValorParametro? parametro,
-    _i6.Decimal? taxa,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #calcularRendimentoAVista,
-          [
-            parametro,
-            taxa,
-          ],
-        ),
-        returnValue: _FakeResultado_3(
-          this,
-          Invocation.method(
-            #calcularRendimentoAVista,
-            [
-              parametro,
-              taxa,
-            ],
-          ),
-        ),
-        returnValueForMissingStub: _FakeResultado_3(
-          this,
-          Invocation.method(
-            #calcularRendimentoAVista,
-            [
-              parametro,
-              taxa,
-            ],
-          ),
-        ),
-      ) as _i5.Resultado);
-  @override
-  _i5.Resultado calcularRedimentoAPrazo(
-    _i7.CalcularValorParametro? parametro,
-    _i6.Decimal? taxa,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #calcularRedimentoAPrazo,
-          [
-            parametro,
-            taxa,
-          ],
-        ),
-        returnValue: _FakeResultado_3(
-          this,
-          Invocation.method(
-            #calcularRedimentoAPrazo,
-            [
-              parametro,
-              taxa,
-            ],
-          ),
-        ),
-        returnValueForMissingStub: _FakeResultado_3(
-          this,
-          Invocation.method(
-            #calcularRedimentoAPrazo,
-            [
-              parametro,
-              taxa,
-            ],
-          ),
-        ),
-      ) as _i5.Resultado);
-  @override
-  _i6.Decimal calcularRendimentoNoMes(
-    _i6.Decimal? valor,
-    _i6.Decimal? taxa,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #calcularRendimentoNoMes,
-          [
-            valor,
-            taxa,
-          ],
-        ),
-        returnValue: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #calcularRendimentoNoMes,
-            [
-              valor,
-              taxa,
-            ],
-          ),
-        ),
-        returnValueForMissingStub: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #calcularRendimentoNoMes,
-            [
-              valor,
-              taxa,
-            ],
-          ),
-        ),
-      ) as _i6.Decimal);
-  @override
-  _i6.Decimal calculcarTributos(
-    _i6.Decimal? rendimento,
-    _i6.Decimal? taxa,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #calculcarTributos,
-          [
-            rendimento,
-            taxa,
-          ],
-        ),
-        returnValue: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #calculcarTributos,
-            [
-              rendimento,
-              taxa,
-            ],
-          ),
-        ),
-        returnValueForMissingStub: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #calculcarTributos,
-            [
-              rendimento,
-              taxa,
-            ],
-          ),
-        ),
-      ) as _i6.Decimal);
-  @override
-  _i6.Decimal getTaxaDeTributos(int? numeroDeMeses) => (super.noSuchMethod(
-        Invocation.method(
-          #getTaxaDeTributos,
-          [numeroDeMeses],
-        ),
-        returnValue: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #getTaxaDeTributos,
-            [numeroDeMeses],
-          ),
-        ),
-        returnValueForMissingStub: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #getTaxaDeTributos,
-            [numeroDeMeses],
-          ),
-        ),
-      ) as _i6.Decimal);
-  @override
-  _i6.Decimal getTaxaEscolhida(
-    _i10.Taxas? taxas,
-    _i11.TipoDeTaxa? tipoDeTaxa,
+  double getTaxaEscolhida(
+    _i9.Taxas? taxas,
+    _i10.TipoDeTaxa? tipoDeTaxa,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -306,122 +131,52 @@ class MockCalcularValor extends _i1.Mock implements _i7.CalcularValor {
             tipoDeTaxa,
           ],
         ),
-        returnValue: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #getTaxaEscolhida,
-            [
-              taxas,
-              tipoDeTaxa,
-            ],
-          ),
-        ),
-        returnValueForMissingStub: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #getTaxaEscolhida,
-            [
-              taxas,
-              tipoDeTaxa,
-            ],
-          ),
-        ),
-      ) as _i6.Decimal);
-  @override
-  _i5.Resultado joinResultado({
-    required _i5.Resultado? resultadoAPrazo,
-    required _i5.Resultado? resultadoAVista,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #joinResultado,
-          [],
-          {
-            #resultadoAPrazo: resultadoAPrazo,
-            #resultadoAVista: resultadoAVista,
-          },
-        ),
-        returnValue: _FakeResultado_3(
-          this,
-          Invocation.method(
-            #joinResultado,
-            [],
-            {
-              #resultadoAPrazo: resultadoAPrazo,
-              #resultadoAVista: resultadoAVista,
-            },
-          ),
-        ),
-        returnValueForMissingStub: _FakeResultado_3(
-          this,
-          Invocation.method(
-            #joinResultado,
-            [],
-            {
-              #resultadoAPrazo: resultadoAPrazo,
-              #resultadoAVista: resultadoAVista,
-            },
-          ),
-        ),
-      ) as _i5.Resultado);
-  @override
-  _i6.Decimal fromDoubleToDecimal(double? valor) => (super.noSuchMethod(
-        Invocation.method(
-          #fromDoubleToDecimal,
-          [valor],
-        ),
-        returnValue: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #fromDoubleToDecimal,
-            [valor],
-          ),
-        ),
-        returnValueForMissingStub: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #fromDoubleToDecimal,
-            [valor],
-          ),
-        ),
-      ) as _i6.Decimal);
-  @override
-  _i6.Decimal fromStringToDecimal(String? valor) => (super.noSuchMethod(
-        Invocation.method(
-          #fromStringToDecimal,
-          [valor],
-        ),
-        returnValue: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #fromStringToDecimal,
-            [valor],
-          ),
-        ),
-        returnValueForMissingStub: _FakeDecimal_4(
-          this,
-          Invocation.method(
-            #fromStringToDecimal,
-            [valor],
-          ),
-        ),
-      ) as _i6.Decimal);
-  @override
-  String fromDecimalToStringReal(_i6.Decimal? valor) => (super.noSuchMethod(
-        Invocation.method(
-          #fromDecimalToStringReal,
-          [valor],
-        ),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
-  @override
-  double fromDecimalToDouble(_i6.Decimal? valor) => (super.noSuchMethod(
-        Invocation.method(
-          #fromDecimalToDouble,
-          [valor],
-        ),
         returnValue: 0.0,
         returnValueForMissingStub: 0.0,
       ) as double);
+}
+
+/// A class which mocks [CalcularComTaxaPersonalizada].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCalcularComTaxaPersonalizada extends _i1.Mock
+    implements _i11.CalcularComTaxaPersonalizada {
+  @override
+  _i3.CalcularRendimento get calcularRendimento => (super.noSuchMethod(
+        Invocation.getter(#calcularRendimento),
+        returnValue: _FakeCalcularRendimento_1(
+          this,
+          Invocation.getter(#calcularRendimento),
+        ),
+        returnValueForMissingStub: _FakeCalcularRendimento_1(
+          this,
+          Invocation.getter(#calcularRendimento),
+        ),
+      ) as _i3.CalcularRendimento);
+  @override
+  _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>> call(
+          _i11.CalcularComTaxaPersonalizadaParametro? parametro) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [parametro],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>>.value(
+            _FakeEither_2<_i7.Falha, _i8.Resultado>(
+          this,
+          Invocation.method(
+            #call,
+            [parametro],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>>.value(
+                _FakeEither_2<_i7.Falha, _i8.Resultado>(
+          this,
+          Invocation.method(
+            #call,
+            [parametro],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Falha, _i8.Resultado>>);
 }

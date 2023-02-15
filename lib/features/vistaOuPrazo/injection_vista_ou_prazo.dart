@@ -4,6 +4,7 @@ import 'package:avistaouaprazo/features/vistaOuPrazo/data/datasources/vista_ou_p
 import 'package:avistaouaprazo/features/vistaOuPrazo/data/datasources/vista_ou_prazo_remote_data_source_impl.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/data/repositories/vista_ou_prazo_repository_impl.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/repositories/vista_ou_prazo_repository.dart';
+import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_com_taxa_personalizada.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_valor.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/presentation/bloc/vistaouprazo_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -22,9 +23,11 @@ void featureVistaOuPrazo(GetIt sl) {
 
   // useCase
   sl.registerLazySingleton<CalcularValor>(
-      () => CalcularValor(repository: sl(), convertTo: sl()));
+      () => CalcularValor(repository: sl(), calcularRendimento: sl()));
+  sl.registerLazySingleton<CalcularComTaxaPersonalizada>(
+      () => CalcularComTaxaPersonalizada(calcularRendimento: sl()));
 
   // Bloc
-  sl.registerLazySingleton<VistaOuPrazoBloc>(
-      () => VistaOuPrazoBloc(calcularValor: sl()));
+  sl.registerLazySingleton<VistaOuPrazoBloc>(() => VistaOuPrazoBloc(
+      calcularValor: sl(), calcularComTaxaPersonalizada: sl()));
 }

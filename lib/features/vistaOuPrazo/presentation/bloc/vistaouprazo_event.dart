@@ -16,4 +16,13 @@ class CalcularComTaxaPadraoEvent extends VistaOuPrazoEvent {
   List<Object> get props => [parametro];
 }
 
+class CalcularComTaxaPersonalizadaEvent extends VistaOuPrazoEvent {
+  final CalcularComTaxaPersonalizadaParametro parametro;
+
+  const CalcularComTaxaPersonalizadaEvent(this.parametro);
+
+  @override
+  List<Object> get props => [parametro];
+}
+
 class DadosInvalidosEvent extends VistaOuPrazoEvent {}

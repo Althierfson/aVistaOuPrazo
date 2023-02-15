@@ -1,4 +1,6 @@
+import 'package:avistaouaprazo/core/util/input_formato.dart';
 import 'package:avistaouaprazo/core/util/tipo_de_taxa.dart';
+import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_com_taxa_personalizada.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_valor.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/presentation/bloc/vistaouprazo_bloc.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/presentation/pages/como_e_feito_o_calculo_page.dart';
@@ -28,6 +30,7 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
   String? valorDaCompra;
   int? parcelas;
   String? valorAVista;
+  String? taxa;
   TipoDeTaxa? investimento;
 
   @override
@@ -47,7 +50,7 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                     children: [
                       TextFieldMoneyWidget(
                         hintText: "Valor da compra",
-                        labelText: "Informe o valor da Compra a prazo (xx.xx)",
+                        labelText: "Informe o valor da Compra a prazo",
                         onChanged: (valor) => valorDaCompra = valor,
                       ),
                       TextField(
@@ -68,12 +71,14 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                       ),
                       TextFieldMoneyWidget(
                         hintText: "Valor a vista",
-                        labelText: "Informe o valor da compra a vista (xx.xx)",
+                        labelText: "Informe o valor da compra a vista",
                         onChanged: (valor) => valorAVista = valor,
                       ),
                       DropdownButtonFormField(
                           hint: const Text(
-                              "Sobre que taxa seu dinheiro estará rendendo?"),
+                            "Escolha a taxa de rendimento?",
+                            overflow: TextOverflow.fade,
+                          ),
                           items: List<DropdownMenuItem>.from(opcoesDeTaxa.map(
                               (e) => DropdownMenuItem(
                                   value: e['taxa'], child: Text(e['nome'])))),
@@ -87,14 +92,53 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () async {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text("Defina sua taxa"),
+                                    content: TextField(
+                                      controller:
+                                          TextEditingController(text: taxa),
+                                      keyboardType: TextInputType.number,
+                                      decoration: const InputDecoration(
+                                          hintText: "Taxa",
+                                          labelText: "Informe sua taxa"),
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r'[0-9]')),
+                                        MoneyFormat(),
+                                        LengthLimitingTextInputFormatter(5),
+                                      ],
+                                      onChanged: (valor) {
+                                        if (valor.length >= 3) {
+                                          taxa = valor;
+                                        } else {
+                                          taxa = null;
+                                        }
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                              setState(() {});
+                            },
                             child: const Text(
-                              "Usar taxas personalizadas",
+                              "Usar taxa personalizada",
                               style:
                                   TextStyle(fontSize: 16, color: Colors.blue),
                               textAlign: TextAlign.right,
                             ),
                           ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(taxa == null
+                              ? ""
+                              : "Taxa pesonalizada Aplicada: $taxa"),
                         ],
                       ),
                       const SizedBox(
@@ -105,7 +149,7 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
                           if (state is VistaOuPrazoInitial) {
                             return ResultDisplayWidget(
                                 child: const Text(
-                                    "Adicone os valores, depois vá em calculo!"),
+                                    "Adicone os valores, depois vá em calcular!"),
                                 onPressed: () {
                                   verificarEnviarDados(context);
                                 });
@@ -113,10 +157,11 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
 
                           if (state is FazendoCalculoState) {
                             return ResultDisplayWidget(
-                                child: const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                                onPressed: () {});
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              onPressed: () {},
+                            );
                           }
 
                           if (state is FalhaNoCalculoState) {
@@ -178,6 +223,14 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
   }
 
   void verificarEnviarDados(BuildContext context) {
+    if (taxa == null) {
+      verificarEnviarDadosPadrao(context);
+    } else {
+      verificarEnviarDadosPersonalizados(context);
+    }
+  }
+
+  void verificarEnviarDadosPadrao(BuildContext context) {
     if (valorAVista == null ||
         valorDaCompra == null ||
         parcelas == null ||
@@ -190,6 +243,22 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
               valorVista: valorAVista!,
               parcelas: parcelas!,
               tipoDeTaxa: investimento!)));
+    }
+  }
+
+  void verificarEnviarDadosPersonalizados(BuildContext context) {
+    if (valorAVista == null ||
+        valorDaCompra == null ||
+        parcelas == null ||
+        taxa == null) {
+      context.read<VistaOuPrazoBloc>().add(DadosInvalidosEvent());
+    } else {
+      context.read<VistaOuPrazoBloc>().add(CalcularComTaxaPersonalizadaEvent(
+          CalcularComTaxaPersonalizadaParametro(
+              valorDaCompra: valorDaCompra!,
+              valorVista: valorAVista!,
+              parcelas: parcelas!,
+              taxa: taxa!)));
     }
   }
 
