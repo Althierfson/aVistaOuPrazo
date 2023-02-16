@@ -33,6 +33,8 @@ class VistaOuPrazoLocalDataSourceImpl extends VistaOuPrazoLocalDataSource {
 
   @override
   Future<bool> cacheTaxas(TaxasModel taxasModel) async {
+    await sharedPreferences.setString(
+        dataKey, DateTime.now().toIso8601String());
     return await sharedPreferences.setString(
         taxasKey, jsonEncode(taxasModel.toJson()));
   }

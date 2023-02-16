@@ -19,7 +19,7 @@ class VistaOuPrazoRepositoryImpl implements VistaOuPrazoRepository {
   @override
   Future<Either<Falha, Taxas>> getTaxas() async {
     if (await networkInfo.isConnected) {
-      final cacheResult = getCache();
+      final cacheResult = await getCache();
 
       return cacheResult.fold((l) async {
         try {
@@ -37,15 +37,17 @@ class VistaOuPrazoRepositoryImpl implements VistaOuPrazoRepository {
     }
   }
 
-  Either<Falha, Taxas> getCache() {
+  Future<Either<Falha, Taxas>> getCache() {
     if (localDataSource.cacheIsvalido()) {
       try {
-        return Right(localDataSource.getCachedTaxas());
+        return Future.delayed(const Duration(seconds: 1),
+            () => Right(localDataSource.getCachedTaxas()));
       } on Falha catch (falha) {
-        return Left(falha);
+        return Future.delayed(const Duration(seconds: 1), () => Left(falha));
       }
     } else {
-      return Left(ImpossivelBuscarTaxasFalha());
+      return Future.delayed(
+          const Duration(seconds: 1), () => Left(ImpossivelBuscarTaxasFalha()));
     }
   }
 }

@@ -1,7 +1,10 @@
+import 'package:avistaouaprazo/core/util/admob/banner_ad_admob.dart';
+import 'package:avistaouaprazo/core/util/admob/interstitial_ad_admob.dart';
 import 'package:avistaouaprazo/core/util/tipo_resutado.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/entities/resultado.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/presentation/widgets/result_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -17,6 +20,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
   late TipoResultado tipoResultadoSet;
   late List<CartesianPreco> historicoAVista;
   late List<CartesianPreco> historicoAPrazo;
+  late InterstitialAd? interstitialAd;
 
   @override
   void initState() {
@@ -24,6 +28,14 @@ class _DetalhesPageState extends State<DetalhesPage> {
     tipoResultadoSet = widget.resultado.qualMelhor;
     historicoAVista = createList(widget.resultado.historicoAvista);
     historicoAPrazo = createList(widget.resultado.historicoAPrazo);
+    InterstitialAdAdmob.loadInterstitial(
+        onAdLoaded: (ad) => interstitialAd = ad);
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+    interstitialAd != null ? await interstitialAd!.show() : () {};
   }
 
   @override
@@ -38,6 +50,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
+              const BannerAdAdMob(),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -74,7 +87,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
               SfCartesianChart(
                 series: <ChartSeries>[
                   LineSeries<double, int>(
-                      name: "A Vista",
+                      name: "À Vista",
                       dataSource: widget.resultado.historicoAvista,
                       xValueMapper: (double valor, index) => index,
                       yValueMapper: (double valor, _) => valor,
@@ -93,9 +106,12 @@ class _DetalhesPageState extends State<DetalhesPage> {
                     numberFormat: NumberFormat.simpleCurrency(
                         decimalDigits: 0, locale: "pt-br")),
                 legend: Legend(
+                    padding: 19,
                     isVisible: true,
                     position: LegendPosition.bottom,
-                    title: LegendTitle(text: "Rendimento ao longo dos meses")),
+                    title: LegendTitle(
+                        text: "Rendimento ao longo dos meses",
+                        alignment: ChartAlignment.center)),
               )
             ],
           ),
