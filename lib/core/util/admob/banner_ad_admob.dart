@@ -1,3 +1,5 @@
+import 'package:avistaouaprazo/environment.dart';
+import 'package:avistaouaprazo/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -17,7 +19,7 @@ class _BannerAdAdMobState extends State<BannerAdAdMob> {
     super.initState();
     bannerAd = BannerAd(
         size: AdSize.banner,
-        adUnitId: "ca-app-pub-3940256099942544/6300978111",
+        adUnitId: sl<Environment>().bannerAdmob,
         listener: const BannerAdListener(),
         request: const AdRequest());
     bannerAd.load();
