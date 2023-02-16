@@ -2,4 +2,5 @@ flutter_icons:
   android: true
   ios: true
   remove_alpha_ios: true
+  adptative_icon_background: "#0029FF"
   image_path: "assets/icone.png"

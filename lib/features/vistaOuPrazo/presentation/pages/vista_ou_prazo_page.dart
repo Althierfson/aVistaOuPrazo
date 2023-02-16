@@ -1,3 +1,4 @@
+import 'package:avistaouaprazo/core/util/admob/banner_ad_admob.dart';
 import 'package:avistaouaprazo/core/util/input_formato.dart';
 import 'package:avistaouaprazo/core/util/tipo_de_taxa.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_com_taxa_personalizada.dart';
@@ -44,182 +45,183 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
         body: BlocProvider(
             create: (_) => sl<VistaOuPrazoBloc>(),
             child: Container(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      TextFieldMoneyWidget(
-                        hintText: "Valor da compra",
-                        labelText: "Informe o valor da Compra a prazo",
-                        onChanged: (valor) => valorDaCompra = valor,
-                      ),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                            hintText: "Nº de Parcelas",
-                            labelText: "Informe o número de parcelas"),
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        ],
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const BannerAdAdMob(),
+                    TextFieldMoneyWidget(
+                      hintText: "Valor da compra",
+                      labelText: "Informe o valor da Compra a prazo",
+                      onChanged: (valor) => valorDaCompra = valor,
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          hintText: "Nº de Parcelas",
+                          labelText: "Informe o número de parcelas"),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      ],
+                      onChanged: (valor) {
+                        if (valor.isEmpty) {
+                          parcelas = null;
+                        } else {
+                          parcelas = int.parse(valor);
+                        }
+                      },
+                    ),
+                    TextFieldMoneyWidget(
+                      hintText: "Valor a vista",
+                      labelText: "Informe o valor da compra a vista",
+                      onChanged: (valor) => valorAVista = valor,
+                    ),
+                    DropdownButtonFormField(
+                        hint: const Text(
+                          "Escolha a taxa de rendimento?",
+                          overflow: TextOverflow.fade,
+                        ),
+                        items: List<DropdownMenuItem>.from(opcoesDeTaxa.map(
+                            (e) => DropdownMenuItem(
+                                value: e['taxa'], child: Text(e['nome'])))),
                         onChanged: (valor) {
-                          if (valor.isEmpty) {
-                            parcelas = null;
-                          } else {
-                            parcelas = int.parse(valor);
-                          }
-                        },
-                      ),
-                      TextFieldMoneyWidget(
-                        hintText: "Valor a vista",
-                        labelText: "Informe o valor da compra a vista",
-                        onChanged: (valor) => valorAVista = valor,
-                      ),
-                      DropdownButtonFormField(
-                          hint: const Text(
-                            "Escolha a taxa de rendimento?",
-                            overflow: TextOverflow.fade,
-                          ),
-                          items: List<DropdownMenuItem>.from(opcoesDeTaxa.map(
-                              (e) => DropdownMenuItem(
-                                  value: e['taxa'], child: Text(e['nome'])))),
-                          onChanged: (valor) {
-                            investimento = valor;
-                          }),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text("Defina sua taxa"),
-                                    content: TextField(
-                                      controller:
-                                          TextEditingController(text: taxa),
-                                      keyboardType: TextInputType.number,
-                                      decoration: const InputDecoration(
-                                          hintText: "Taxa",
-                                          labelText: "Informe sua taxa"),
-                                      inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp(r'[0-9]')),
-                                        MoneyFormat(),
-                                        LengthLimitingTextInputFormatter(5),
-                                      ],
-                                      onChanged: (valor) {
-                                        if (valor.length >= 3) {
-                                          taxa = valor;
-                                        } else {
-                                          taxa = null;
-                                        }
-                                      },
-                                    ),
-                                  );
-                                },
-                              );
-                              setState(() {});
-                            },
-                            child: const Text(
-                              "Usar taxa personalizada",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.blue),
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(taxa == null
-                              ? ""
-                              : "Taxa pesonalizada Aplicada: $taxa"),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      BlocBuilder<VistaOuPrazoBloc, VistaOuPrazoState>(
-                        builder: (context, state) {
-                          if (state is VistaOuPrazoInitial) {
-                            return ResultDisplayWidget(
-                                child: const Text(
-                                    "Adicone os valores, depois vá em calcular!"),
-                                onPressed: () {
-                                  verificarEnviarDados(context);
-                                });
-                          }
-
-                          if (state is FazendoCalculoState) {
-                            return ResultDisplayWidget(
-                              child: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              onPressed: () {},
+                          investimento = valor;
+                        }),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Defina sua taxa"),
+                                  content: TextField(
+                                    controller:
+                                        TextEditingController(text: taxa),
+                                    keyboardType: TextInputType.number,
+                                    decoration: const InputDecoration(
+                                        hintText: "Taxa",
+                                        labelText: "Informe sua taxa"),
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'[0-9]')),
+                                      MoneyFormat(),
+                                      LengthLimitingTextInputFormatter(5),
+                                    ],
+                                    onChanged: (valor) {
+                                      if (valor.length >= 3) {
+                                        taxa = valor;
+                                      } else {
+                                        taxa = null;
+                                      }
+                                    },
+                                  ),
+                                );
+                              },
                             );
-                          }
+                            setState(() {});
+                          },
+                          child: const Text(
+                            "Usar taxa personalizada",
+                            style: TextStyle(fontSize: 16, color: Colors.blue),
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(taxa == null
+                            ? ""
+                            : "Taxa pesonalizada Aplicada: $taxa"),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    BlocBuilder<VistaOuPrazoBloc, VistaOuPrazoState>(
+                      builder: (context, state) {
+                        if (state is VistaOuPrazoInitial) {
+                          return ResultDisplayWidget(
+                              child: const Text(
+                                  "Adicone os valores, depois vá em calcular!"),
+                              onPressed: () {
+                                verificarEnviarDados(context);
+                              });
+                        }
 
-                          if (state is FalhaNoCalculoState) {
-                            return ResultDisplayWidget(
-                                child: Text(
-                                  state.falhaMensagem,
-                                  style: const TextStyle(color: Colors.red),
-                                ),
-                                onPressed: () {
-                                  verificarEnviarDados(context);
-                                });
-                          }
+                        if (state is FazendoCalculoState) {
+                          return ResultDisplayWidget(
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            onPressed: () {},
+                          );
+                        }
 
-                          if (state is CalculoConcluidoState) {
-                            return ResultDisplayWidget(
-                                child: Column(
-                                  children: [
-                                    const Text("A melhor opção é"),
-                                    ResultWidget(
-                                      tipoResultado: state.resultado.qualMelhor,
-                                      resultado: state.resultado,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            child: ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            DetalhesPage(
-                                                                resultado: state
-                                                                    .resultado),
-                                                      ));
-                                                },
-                                                child: const Text(
-                                                    "Veja mais detalhes")))
-                                      ],
-                                    ),
-                                    const Text(
-                                      "Os valores aqui calculados se aproximas da realidades, e podem haver variações, a depender de mundanças de taxas",
-                                      style: TextStyle(fontSize: 10),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
-                                onPressed: () {
-                                  verificarEnviarDados(context);
-                                });
-                          }
+                        if (state is FalhaNoCalculoState) {
+                          return ResultDisplayWidget(
+                              child: Text(
+                                state.falhaMensagem,
+                                style: const TextStyle(color: Colors.red),
+                              ),
+                              onPressed: () {
+                                verificarEnviarDados(context);
+                              });
+                        }
 
-                          return Container();
-                        },
-                      )
-                    ],
-                  ),
-                ))));
+                        if (state is CalculoConcluidoState) {
+                          return ResultDisplayWidget(
+                              child: Column(
+                                children: [
+                                  const Text("A melhor opção é"),
+                                  ResultWidget(
+                                    tipoResultado: state.resultado.qualMelhor,
+                                    resultado: state.resultado,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetalhesPage(
+                                                              resultado: state
+                                                                  .resultado),
+                                                    ));
+                                              },
+                                              child: const Text(
+                                                  "Veja mais detalhes")))
+                                    ],
+                                  ),
+                                  const Text(
+                                    "Os valores aqui calculados se aproximas da realidades, e podem haver variações, a depender de mundanças de taxas",
+                                    style: TextStyle(fontSize: 10),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
+                              onPressed: () {
+                                verificarEnviarDados(context);
+                              });
+                        }
+
+                        return Container();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            )));
   }
 
   void verificarEnviarDados(BuildContext context) {
