@@ -17,7 +17,7 @@ class _BannerAdAdMobState extends State<BannerAdAdMob> {
     super.initState();
     bannerAd = BannerAd(
         size: AdSize.banner,
-        adUnitId: "ca-app-pub-8488117949492696/5266691395",
+        adUnitId: "ca-app-pub-3940256099942544/6300978111",
         listener: const BannerAdListener(),
         request: const AdRequest());
     bannerAd.load();
