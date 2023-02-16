@@ -1,3 +1,4 @@
+import 'package:avistaouaprazo/core/util/admob/banner_ad_admob.dart';
 import 'package:avistaouaprazo/core/util/input_formato.dart';
 import 'package:avistaouaprazo/core/util/tipo_de_taxa.dart';
 import 'package:avistaouaprazo/features/vistaOuPrazo/domain/usecases/calcular_com_taxa_personalizada.dart';
@@ -216,7 +217,8 @@ class _VistaOuPrazoState extends State<VistaOuPrazo> {
 
                           return Container();
                         },
-                      )
+                      ),
+                      const BannerAdAdMob()
                     ],
                   ),
                 ))));
