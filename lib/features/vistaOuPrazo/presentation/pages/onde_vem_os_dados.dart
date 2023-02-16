@@ -1,3 +1,4 @@
+import 'package:avistaouaprazo/core/util/admob/banner_ad_admob.dart';
 import 'package:flutter/material.dart';
 
 class OndeVemOsDados extends StatefulWidget {
@@ -17,7 +18,12 @@ class _OndeVemOsDadosState extends State<OndeVemOsDados> {
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
-        child: Text(texto),
+        child: Column(
+          children: [
+            const BannerAdAdMob(),
+            Text(texto),
+          ],
+        ),
       ),
     );
   }
@@ -26,4 +32,4 @@ class _OndeVemOsDadosState extends State<OndeVemOsDados> {
 String texto =
     """Os nossos dado vem direto do sistema HG Brasil - Utilizamos sua API HG Finance.
     
-    Esses valores ficam armazenados no seu dispositivo, e são atualizados acada 30 dias""";
+Esses valores ficam armazenados no seu dispositivo, e são atualizados acada 30 dias""";

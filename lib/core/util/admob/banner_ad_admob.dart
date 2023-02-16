@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdAdMob extends StatefulWidget {
@@ -28,11 +26,15 @@ class _BannerAdAdMobState extends State<BannerAdAdMob> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: bannerAd.size.width.toDouble(),
-      height: bannerAd.size.height.toDouble(),
-      child: adWidget,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        color: Colors.white,
+        alignment: Alignment.center,
+        width: bannerAd.size.width.toDouble(),
+        height: bannerAd.size.height.toDouble(),
+        child: adWidget,
+      ),
     );
   }
 }
