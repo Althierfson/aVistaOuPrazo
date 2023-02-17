@@ -17,7 +17,7 @@ import 'vista_ou_prazo_remote_data_source_test.mocks.dart';
 void main() {
   group("getRemoteTaxas", () {
     MockClient client = MockClient();
-    Environment testEnvironment = Environment("chave");
+    Environment testEnvironment = Environment(chave: "chave");
     VistaOuPrazoRemoteDataSourceImpl dataSourceImpl =
         VistaOuPrazoRemoteDataSourceImpl(
             client: client, environment: testEnvironment);
