@@ -16,7 +16,7 @@ Com o app À vista ou a prazo, você poderá simular essas duas situações e ve
 
 Para de ficar calculando não mão, com alguns cliques no nosso app, você tem esse resposta de forma automática.
 
-# ScreenShot
+# Screenshot
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/42945474/219516027-f4eb2584-c407-4eab-8109-c3a0a238ed9f.jpg", width="320px"/>
