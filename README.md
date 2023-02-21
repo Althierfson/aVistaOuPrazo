@@ -4,7 +4,7 @@ Um app feito em Flutter onde você pode verificar se vale mais a pena comprar à
 
 Vá no link abaixo para instalar o app:
 
-[Link da Play Store(https://play.google.com/store/apps/details?id=com.cajugames.avistaouaprazo)
+[Link da Play Store](https://play.google.com/store/apps/details?id=com.cajugames.avistaouaprazo)
 
 # Descrição do app
 
